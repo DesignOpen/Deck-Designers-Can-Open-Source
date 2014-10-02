@@ -1,4 +1,4 @@
-Deck-Designers-Can-Open-Source
+Designers Can Open Source Deck
 ==============================
 
-Collection of assets for the Designers Can Open Source Presentation Deck
+Variations of the deck, usually for different events, can be found on separate branches.
