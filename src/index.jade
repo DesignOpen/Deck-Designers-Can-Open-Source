@@ -7,4 +7,10 @@ html
     title Designers can Open Source
     link(rel = 'stylesheet', type = 'text/css', href = 'css/main.css')
     link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic', rel='stylesheet', type='text/css')
+    script(src="js/main.js")
   body
+    - var slides = ["01-Title.svg","02-Richard-Stallman.svg","03-Printer-Gift.svg","04-Printer-Frustration.svg","05-Stallman-GNU.svg","06-Freedom.svg","07-Free-to.svg","08-Linus-Torvalds.svg","09-Linux.svg","10-Many-eyes.svg","11-Eric-Raymond.svg","12-Cathedral-Bazaar.svg","13-OSI.svg","14-Git-and-GitHub.svg","15-GitHub-Features.svg","16-Why.svg","17-MIT-Study.svg","18-Academic-thinking.svg","19-MIT-Quote.svg","20-Feels.svg","21-Drive.svg","22-Group.svg","23-For-the-love.svg","24-Great-ideas-combine.svg","25-Connected-mind.svg","26-What-about-design.svg","27-Problem-Solving.svg","28-Lift-together.svg","29-MOAR-IDEAS.svg","30-I-can-get-some-statisfaction.svg","31-How-do-we-do-it.svg","32-Share-the-process.svg","33-Share-the-source.svg","34-Use-code-as-a-design-tool.svg","35-Collaborate.svg","36-Donate.svg","37-Contribute.svg","38-Shameless-plugs.svg","39-Obstacles.svg","40-Fix-it.svg","41-A-humble-manifesto.svg","42-logo.svg","43-Designers-Should-Open-Source.svg"]
+    .content-window
+      .slides
+        each slide in slides
+          .slide(style="background-image: url('img/"+slide+"');")
