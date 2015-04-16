@@ -9,8 +9,10 @@ slides: [
       <li>Design Open</li>
     </ul>
     <h2>We are:</h2>
-    <ul><li>Story time</li>
-    Benefits of f/oss"
+    <ul>
+      <li>Story time</li>
+      <li>Benefits of f/oss</li>
+    </ul>"
   }
   {
     img:"02-Richard-Stallman.svg"

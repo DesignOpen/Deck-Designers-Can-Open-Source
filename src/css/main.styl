@@ -6,6 +6,13 @@ body
   color #333
   background url('../img/00-template.svg') center no-repeat
   background-size contain
+  font-family sans-serif
+  color rgba(0,0,0,0.7)
+a
+  text-decoration none
+  color #3A88E0
+  &:hover
+    text-decoration underline
 .slides
   width 100vw
   height 100vh
@@ -27,3 +34,16 @@ body
   top 100vh
 .previous
   top -100vh
+.notes
+  position absolute
+  top 0
+  right 0
+  height 100vh
+  background rgba(255,255,255,0.8)
+  box-shadow -1px 0 3px rgba(0, 0, 0, 0.3)
+  box-sizing border-box
+  padding 20px
+  min-width 30vw
+  display none
+  &.open
+    display block

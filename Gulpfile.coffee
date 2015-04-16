@@ -57,4 +57,5 @@ gulp.task 'default', [
   gulp.watch 'src/*.jade', [ 'html' ]
   gulp.watch 'src/js/**/*.coffee', [ 'js' ]
   gulp.watch 'src/js/*.coffee', [ 'js' ]
+  gulp.watch 'src/js/*.cson', [ 'js' ]
   gulp.watch 'src/img/*', [ 'img' ]

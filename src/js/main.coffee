@@ -9,9 +9,11 @@ window.React = React
 Site = React.createClass
   displayName: 'Slides'
   getInitialState: () ->
+    initialIndex = 0
     return {
-      currentIndex: 0
-      notes: ''
+      currentIndex: initialIndex
+      notes: if(slides[initialIndex].notes)then slides[initialIndex].notes else ''
+      notesOpen: false
     }
   getSlideState: (index) ->
     if index > @state.currentIndex
@@ -23,19 +25,22 @@ Site = React.createClass
   updateSlideIndex: (index) ->
     index = if index < 0 then 0 else index
     index = if index > slides.length - 1 then slides.length - 1 else index
-    @setState({currentIndex:index})
+    @setState({
+      currentIndex:index
+      notes:if(slides[index].notes)then slides[index].notes else ''
+    })
   componentDidMount: ()->
     document.onkeydown = @keyHandler
   keyHandler: (e)->
     e = e || window.event
-    if e.keyCode == 38
-      @updateSlideIndex(@state.currentIndex - 1)
-    if e.keyCode == 40
-      @updateSlideIndex(@state.currentIndex + 1)
+    switch e.keyCode
+      when 38 then @updateSlideIndex(@state.currentIndex - 1)
+      when 40 then @updateSlideIndex(@state.currentIndex + 1)
+      when 78 then @setState({notesOpen: !@state.notesOpen})
   render: ->
     <div className="slides">
       {<Slide key={index} img={slideItem.img} slideState={@getSlideState(index)}/> for slideItem, index in @props.slides}
-      <Notes isOpen={false} notes={@state.notes}/>
+      <Notes isOpen={@state.notesOpen} notes={@state.notes}/>
     </div>
 
 document.addEventListener "DOMContentLoaded", (event)->

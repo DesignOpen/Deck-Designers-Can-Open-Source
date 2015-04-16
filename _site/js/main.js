@@ -16,9 +16,12 @@ window.React = React;
 Site = React.createClass({
   displayName: 'Slides',
   getInitialState: function() {
+    var initialIndex;
+    initialIndex = 0;
     return {
-      currentIndex: 0,
-      notes: ''
+      currentIndex: initialIndex,
+      notes: slides[initialIndex].notes ? slides[initialIndex].notes : '',
+      notesOpen: false
     };
   },
   getSlideState: function(index) {
@@ -34,36 +37,28 @@ Site = React.createClass({
     index = index < 0 ? 0 : index;
     index = index > slides.length - 1 ? slides.length - 1 : index;
     return this.setState({
-      currentIndex: index
+      currentIndex: index,
+      notes: slides[index].notes ? slides[index].notes : ''
     });
   },
   componentDidMount: function() {
-    document.onkeydown = this.keyHandler;
-    if (window.addEventListener) {
-      return window.addEventListener("storage", this.storageHandler, false);
-    } else {
-      return window.attachEvent("onstorage", this.storageHandler);
-    }
+    return document.onkeydown = this.keyHandler;
   },
   keyHandler: function(e) {
     e = e || window.event;
-    if (e.keyCode === 38) {
-      this.updateSlideIndex(this.state.currentIndex - 1);
+    switch (e.keyCode) {
+      case 38:
+        return this.updateSlideIndex(this.state.currentIndex - 1);
+      case 40:
+        return this.updateSlideIndex(this.state.currentIndex + 1);
+      case 78:
+        return this.setState({
+          notesOpen: !this.state.notesOpen
+        });
     }
-    if (e.keyCode === 40) {
-      return this.updateSlideIndex(this.state.currentIndex + 1);
-    }
-  },
-  storageHandler: function(e) {
-    console.log('Successfully communicate with other tab');
-    return this.setState({
-      notes: localStorage.getItem('notes')
-    });
   },
   render: function() {
     var index, slideItem;
-    localStorage.setItem("notes", slides[this.state.currentIndex].notes);
-    localStorage.setItem("index", this.state.currentIndex);
     return React.createElement("div", {
       "className": "slides"
     }, (function() {
@@ -80,7 +75,7 @@ Site = React.createClass({
       }
       return results;
     }).call(this), React.createElement(Notes, {
-      "isOpen": false,
+      "isOpen": this.state.notesOpen,
       "notes": this.state.notes
     }));
   }
@@ -21995,16 +21990,26 @@ if ( typeof define === "function" && define.amd ) {
 
 },{}],160:[function(require,module,exports){
 /** @jsx React.DOM */;
-var Notes, React;
+var Notes, React, classNames;
 
 React = require('react');
+
+classNames = require('classnames');
 
 Notes = React.createClass({
   displayName: 'Notes',
   render: function() {
+    var classes;
+    classes = classNames({
+      notes: true,
+      open: this.props.isOpen
+    });
     return React.createElement("div", {
-      "className": "notes"
-    }, this.props.notes);
+      "className": classes,
+      "dangerouslySetInnerHTML": {
+        __html: this.props.notes
+      }
+    });
   }
 });
 
@@ -22012,7 +22017,7 @@ module.exports = Notes;
 
 
 
-},{"react":158}],161:[function(require,module,exports){
+},{"classnames":3,"react":158}],161:[function(require,module,exports){
 /** @jsx React.DOM */;
 var React, Slide, classNames;
 
@@ -22044,5 +22049,5 @@ module.exports = Slide;
 
 
 },{"classnames":3,"react":158}],162:[function(require,module,exports){
-module.exports={"slides":[{"img":"01-Title.svg","notes":"<h1>Intro</h1> <ul> <li>@garthdb</li> <li>Adobe</li> <li>PhoneGap</li> <li>Design Open</li> </ul> <h2>We are:</h2> <ul><li>Story time</li> Benefits of f/oss"},{"img":"02-Richard-Stallman.svg","notes":"<a href='http://oreilly.com/openbook/freedom/ch01.html'>Richard Stallman and the Printer</a>"},{"img":"03-Printer-Gift.svg"},{"img":"04-Printer-Frustration.svg"},{"img":"05-Stallman-GNU.svg"},{"img":"06-Freedom.svg"},{"img":"07-Free-to.svg"},{"img":"08-Linus-Torvalds.svg"},{"img":"09-Linux.svg"},{"img":"10-Many-eyes.svg"},{"img":"11-Eric-Raymond.svg"},{"img":"12-Cathedral-Bazaar.svg"},{"img":"13-OSI.svg"},{"img":"14-Git-and-GitHub.svg"},{"img":"15-GitHub-Features.svg"},{"img":"16-Why.svg"},{"img":"17-MIT-Study.svg"},{"img":"18-Academic-thinking.svg"},{"img":"19-MIT-Quote.svg"},{"img":"20-Feels.svg"},{"img":"21-Drive.svg"},{"img":"22-Group.svg"},{"img":"23-For-the-love.svg"},{"img":"24-Great-ideas-combine.svg"},{"img":"25-Connected-mind.svg"},{"img":"26-What-about-design.svg"},{"img":"27-Problem-Solving.svg"},{"img":"28-Lift-together.svg"},{"img":"29-MOAR-IDEAS.svg"},{"img":"30-I-can-get-some-statisfaction.svg"},{"img":"31-How-do-we-do-it.svg"},{"img":"32-Share-the-process.svg"},{"img":"33-Share-the-source.svg"},{"img":"34-Use-code-as-a-design-tool.svg"},{"img":"35-Collaborate.svg"},{"img":"36-Donate.svg"},{"img":"37-Contribute.svg"},{"img":"38-Shameless-plugs.svg"},{"img":"39-Obstacles.svg"},{"img":"40-Fix-it.svg"},{"img":"41-A-humble-manifesto.svg"},{"img":"42-logo.svg"},{"img":"43-Designers-Should-Open-Source.svg"}]}
+module.exports={"slides":[{"img":"01-Title.svg","notes":"<h1>Intro</h1> <ul> <li>@garthdb</li> <li>Adobe</li> <li>PhoneGap</li> <li>Design Open</li> </ul> <h2>We are:</h2> <ul> <li>Story time</li> <li>Benefits of f/oss</li> </ul>"},{"img":"02-Richard-Stallman.svg","notes":"<a href='http://oreilly.com/openbook/freedom/ch01.html'>Richard Stallman and the Printer</a>"},{"img":"03-Printer-Gift.svg"},{"img":"04-Printer-Frustration.svg"},{"img":"05-Stallman-GNU.svg"},{"img":"06-Freedom.svg"},{"img":"07-Free-to.svg"},{"img":"08-Linus-Torvalds.svg"},{"img":"09-Linux.svg"},{"img":"10-Many-eyes.svg"},{"img":"11-Eric-Raymond.svg"},{"img":"12-Cathedral-Bazaar.svg"},{"img":"13-OSI.svg"},{"img":"14-Git-and-GitHub.svg"},{"img":"15-GitHub-Features.svg"},{"img":"16-Why.svg"},{"img":"17-MIT-Study.svg"},{"img":"18-Academic-thinking.svg"},{"img":"19-MIT-Quote.svg"},{"img":"20-Feels.svg"},{"img":"21-Drive.svg"},{"img":"22-Group.svg"},{"img":"23-For-the-love.svg"},{"img":"24-Great-ideas-combine.svg"},{"img":"25-Connected-mind.svg"},{"img":"26-What-about-design.svg"},{"img":"27-Problem-Solving.svg"},{"img":"28-Lift-together.svg"},{"img":"29-MOAR-IDEAS.svg"},{"img":"30-I-can-get-some-statisfaction.svg"},{"img":"31-How-do-we-do-it.svg"},{"img":"32-Share-the-process.svg"},{"img":"33-Share-the-source.svg"},{"img":"34-Use-code-as-a-design-tool.svg"},{"img":"35-Collaborate.svg"},{"img":"36-Donate.svg"},{"img":"37-Contribute.svg"},{"img":"38-Shameless-plugs.svg"},{"img":"39-Obstacles.svg"},{"img":"40-Fix-it.svg"},{"img":"41-A-humble-manifesto.svg"},{"img":"42-logo.svg"},{"img":"43-Designers-Should-Open-Source.svg"}]}
 },{}]},{},[1]);
