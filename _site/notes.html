@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Designers can Open Source</title>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic" rel="stylesheet" type="text/css">
+    <script>
+      if (window.addEventListener) {
+        window.addEventListener("storage", handler, false);
+      } else {
+        window.attachEvent("onstorage", handler);
+      };
+      function handler(e) {
+        console.log('Successfully communicate with other tab');
+        console.log('Received data: ' + localStorage.getItem('notes'));
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

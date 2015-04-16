@@ -8,10 +8,9 @@ sourcemaps = require('gulp-sourcemaps')
 browserSync = require('browser-sync')
 reload = browserSync.reload
 filter = require('gulp-filter')
-browserify = require 'browserify'
+browserify = require('browserify')
 source = require('vinyl-source-stream')
 buffer = require('vinyl-buffer')
-uglify = require('gulp-uglifyjs')
 gulp.task 'css', ->
   gulp.src('src/css/*.styl').pipe(stylus(
     compress: true
@@ -23,7 +22,8 @@ gulp.task 'js', ->
   browserify
     entries: ['./src/js/main.coffee']
     extensions: ['.coffee', '.js']
-  .transform 'coffeeify'
+  .transform 'csonify'
+  .transform 'coffee-reactify'
   .bundle()
   # Pass desired file name to browserify with vinyl
   .pipe source 'main.js'
@@ -57,4 +57,5 @@ gulp.task 'default', [
   gulp.watch 'src/*.jade', [ 'html' ]
   gulp.watch 'src/js/**/*.coffee', [ 'js' ]
   gulp.watch 'src/js/*.coffee', [ 'js' ]
+  gulp.watch 'src/js/*.cson', [ 'js' ]
   gulp.watch 'src/img/*', [ 'img' ]
