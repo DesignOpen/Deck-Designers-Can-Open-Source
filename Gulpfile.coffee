@@ -18,7 +18,7 @@ gulp.task 'css', ->
       inline: true
       sourceRoot: '.'
       basePath: '_site/css')).pipe(sourcemaps.init(loadMaps: true)).pipe(prefix('> 1%')).pipe(sourcemaps.write('./', {})).pipe(gulp.dest('_site/css')).pipe(filter('**/*.css')).pipe reload(stream: true)
-gulp.task 'js', ->
+gulp.task 'js', ['remote.js'], ->
   browserify
     entries: ['./src/js/main.coffee']
     extensions: ['.coffee', '.js']
@@ -27,6 +27,17 @@ gulp.task 'js', ->
   .bundle()
   # Pass desired file name to browserify with vinyl
   .pipe source 'main.js'
+  # Start piping stream to tasks!
+  .pipe gulp.dest '_site/js'
+gulp.task 'remote.js', ->
+  browserify
+    entries: ['./src/js/remote.coffee']
+    extensions: ['.coffee', '.js']
+  .transform 'csonify'
+  .transform 'coffee-reactify'
+  .bundle()
+  # Pass desired file name to browserify with vinyl
+  .pipe source 'remote.js'
   # Start piping stream to tasks!
   .pipe gulp.dest '_site/js'
 gulp.task 'html', ->
