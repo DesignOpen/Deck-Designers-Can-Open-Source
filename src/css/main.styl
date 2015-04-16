@@ -6,19 +6,24 @@ body
   color #333
   background url('../img/00-template.svg') center no-repeat
   background-size contain
-.content-window
+.slides
   width 100vw
   height 100vh
-  overflow hidden
   position relative
-.slides
-  top 0
-  left 0
-  position absolute
-  transition top 0.8s ease-in-out
+  overflow hidden
 .slide
   width 100vw
   height 100vh
+  top 0
+  left 0
   background-size contain
   background-position center
   background-repeat no-repeat
+  position absolute
+  transition top 0.5s ease-in-out
+.current
+  top 0
+.next
+  top 100vh
+.previous
+  top -100vh
